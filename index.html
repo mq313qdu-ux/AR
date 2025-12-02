@@ -1,0 +1,2266 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+ <head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>منصة QDU للاختبار التفاعلي - النحو</title>
+  <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;900&amp;family=Cairo:wght@400;600;700;900&amp;display=swap" rel="stylesheet">
+  <script src="/_sdk/data_sdk.js"></script>
+  <script src="/_sdk/element_sdk.js"></script>
+  <style>
+        body {
+            box-sizing: border-box;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
+            -webkit-touch-callout: none;
+        }
+
+        body {
+            font-family: 'Tajawal', sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100%;
+            width: 100%;
+            padding: 20px;
+            transition: background 0.3s ease;
+        }
+
+        body.dark-mode {
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+        }
+
+        .app-container {
+            max-width: 900px;
+            margin: 0 auto;
+            width: 100%;
+        }
+
+        .header {
+            background: white;
+            border-radius: 20px;
+            padding: 30px;
+            text-align: center;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            margin-bottom: 30px;
+            transition: background 0.3s ease, color 0.3s ease;
+        }
+
+        body.dark-mode .header {
+            background: #0f3460;
+            color: white;
+        }
+
+        .platform-logo {
+            font-size: 2.5em;
+            font-weight: 900;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 10px;
+            font-family: 'Cairo', sans-serif;
+        }
+
+        body.dark-mode .platform-logo {
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .subject-name {
+            font-size: 1.3em;
+            color: #764ba2;
+            font-weight: 600;
+            margin-bottom: 15px;
+        }
+
+        body.dark-mode .subject-name {
+            color: #f093fb;
+        }
+
+        .student-info {
+            display: inline-block;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 10px 25px;
+            border-radius: 25px;
+            font-weight: 600;
+            margin-top: 10px;
+        }
+
+        body.dark-mode .student-info {
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+        }
+
+        .lecture-selection {
+            background: white;
+            border-radius: 20px;
+            padding: 40px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            margin-bottom: 20px;
+            transition: background 0.3s ease, color 0.3s ease;
+        }
+
+        body.dark-mode .lecture-selection {
+            background: #0f3460;
+            color: white;
+        }
+
+        .selection-title {
+            text-align: center;
+            font-size: 2em;
+            font-weight: 700;
+            color: #764ba2;
+            margin-bottom: 35px;
+            font-family: 'Cairo', sans-serif;
+        }
+
+        body.dark-mode .selection-title {
+            color: #f093fb;
+        }
+
+        .lecture-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 25px;
+            margin-top: 30px;
+        }
+
+        .lecture-card {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border-radius: 20px;
+            padding: 35px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 20px rgba(102, 126, 234, 0.3);
+            position: relative;
+            overflow: hidden;
+        }
+
+        body.dark-mode .lecture-card {
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+        }
+
+        .lecture-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 35px rgba(102, 126, 234, 0.5);
+        }
+
+        .lecture-icon {
+            font-size: 4em;
+            margin-bottom: 20px;
+        }
+
+        .lecture-title {
+            font-size: 1.5em;
+            font-weight: 700;
+            color: white;
+            margin-bottom: 15px;
+            font-family: 'Cairo', sans-serif;
+        }
+
+        .lecture-questions {
+            font-size: 1.1em;
+            color: rgba(255, 255, 255, 0.9);
+            margin-bottom: 10px;
+        }
+
+        .lecture-description {
+            font-size: 0.95em;
+            color: rgba(255, 255, 255, 0.8);
+            line-height: 1.6;
+        }
+
+        .quiz-card {
+            background: white;
+            border-radius: 20px;
+            padding: 35px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            margin-bottom: 20px;
+            transition: background 0.3s ease, color 0.3s ease;
+        }
+
+        body.dark-mode .quiz-card {
+            background: #0f3460;
+            color: white;
+        }
+
+        .quiz-header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .quiz-title {
+            font-size: 1.8em;
+            font-weight: 700;
+            color: #764ba2;
+            margin-bottom: 15px;
+            font-family: 'Cairo', sans-serif;
+        }
+
+        body.dark-mode .quiz-title {
+            color: #f093fb;
+        }
+
+        .progress-bar {
+            background: #e0e0e0;
+            height: 8px;
+            border-radius: 10px;
+            overflow: hidden;
+            margin-bottom: 10px;
+        }
+
+        body.dark-mode .progress-bar {
+            background: #16213e;
+        }
+
+        .progress-fill {
+            background: linear-gradient(90deg, #667eea 0%, #764ba2 100%);
+            height: 100%;
+            transition: width 0.4s ease;
+            border-radius: 10px;
+        }
+
+        body.dark-mode .progress-fill {
+            background: linear-gradient(90deg, #f093fb 0%, #f5576c 100%);
+        }
+
+        .progress-text {
+            text-align: center;
+            font-size: 0.9em;
+            color: #666;
+            margin-top: 5px;
+        }
+
+        body.dark-mode .progress-text {
+            color: #aaa;
+        }
+
+        .question-container {
+            margin-bottom: 30px;
+        }
+
+        .question-type-badge {
+            display: inline-block;
+            background: #ff9800;
+            color: white;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 0.85em;
+            font-weight: 600;
+            margin-bottom: 15px;
+        }
+
+        body.dark-mode .question-type-badge {
+            background: #ff6f00;
+        }
+
+        .question-text {
+            font-size: 1.3em;
+            font-weight: 600;
+            margin-bottom: 25px;
+            line-height: 1.8;
+            color: #333;
+        }
+
+        body.dark-mode .question-text {
+            color: #fff;
+        }
+
+        .options-container {
+            display: grid;
+            gap: 15px;
+        }
+
+        .option-btn {
+            background: #f5f5f5;
+            border: 3px solid transparent;
+            padding: 18px 25px;
+            border-radius: 15px;
+            font-size: 1.1em;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-align: right;
+            font-family: 'Tajawal', sans-serif;
+            color: #333;
+            width: 100%;
+        }
+
+        body.dark-mode .option-btn {
+            background: #16213e;
+            color: #fff;
+        }
+
+        .option-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.3);
+            border-color: #667eea;
+        }
+
+        .option-btn.correct {
+            background: #4caf50;
+            color: white;
+            border-color: #45a049;
+        }
+
+        .option-btn.wrong {
+            background: #f44336;
+            color: white;
+            border-color: #da190b;
+        }
+
+        .option-btn:disabled {
+            cursor: not-allowed;
+            opacity: 0.7;
+        }
+
+        .true-false-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin-top: 20px;
+        }
+
+        .tf-btn {
+            background: #f5f5f5;
+            border: 3px solid transparent;
+            padding: 25px;
+            border-radius: 15px;
+            font-size: 1.3em;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-align: center;
+            font-family: 'Cairo', sans-serif;
+            color: #333;
+        }
+
+        body.dark-mode .tf-btn {
+            background: #16213e;
+            color: #fff;
+        }
+
+        .tf-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.3);
+            border-color: #667eea;
+        }
+
+        .tf-btn.correct {
+            background: #4caf50;
+            color: white;
+            border-color: #45a049;
+        }
+
+        .tf-btn.wrong {
+            background: #f44336;
+            color: white;
+            border-color: #da190b;
+        }
+
+        .tf-btn:disabled {
+            cursor: not-allowed;
+            opacity: 0.7;
+        }
+
+        .feedback-box {
+            background: #fff3cd;
+            border: 2px solid #ffc107;
+            border-radius: 12px;
+            padding: 15px;
+            margin-top: 20px;
+            font-size: 1em;
+            line-height: 1.6;
+            color: #856404;
+        }
+
+        body.dark-mode .feedback-box {
+            background: #3d2f00;
+            border-color: #ffc107;
+            color: #ffd966;
+        }
+
+        .results-container {
+            text-align: center;
+            padding: 40px 20px;
+        }
+
+        .score-display {
+            font-size: 4em;
+            font-weight: 900;
+            margin: 20px 0;
+            font-family: 'Cairo', sans-serif;
+        }
+
+        .score-display.fail {
+            color: #f44336;
+        }
+
+        .score-display.pass {
+            color: #4caf50;
+        }
+
+        .score-display.excellent {
+            background: linear-gradient(135deg, #ffd700 0%, #ffed4e 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .result-message {
+            font-size: 1.5em;
+            font-weight: 600;
+            margin: 20px 0;
+            line-height: 1.6;
+        }
+
+        .result-details {
+            background: #f5f5f5;
+            border-radius: 15px;
+            padding: 20px;
+            margin: 25px 0;
+            font-size: 1.1em;
+        }
+
+        body.dark-mode .result-details {
+            background: #16213e;
+        }
+
+        .action-btn {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            padding: 15px 40px;
+            border-radius: 30px;
+            font-size: 1.1em;
+            font-weight: 600;
+            cursor: pointer;
+            margin: 10px;
+            transition: all 0.3s ease;
+            font-family: 'Tajawal', sans-serif;
+        }
+
+        body.dark-mode .action-btn {
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+        }
+
+        .action-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(102, 126, 234, 0.4);
+        }
+
+        .controls {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            display: flex;
+            gap: 15px;
+            z-index: 1000;
+        }
+
+        .control-btn {
+            background: white;
+            border: none;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5em;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            transition: all 0.3s ease;
+        }
+
+        body.dark-mode .control-btn {
+            background: #0f3460;
+            color: white;
+        }
+
+        .control-btn:hover {
+            transform: scale(1.1);
+        }
+
+        .confetti-canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 9999;
+        }
+
+        .review-item {
+            background: #f9f9f9;
+            border-radius: 12px;
+            padding: 20px;
+            margin-bottom: 20px;
+            text-align: right;
+        }
+
+        body.dark-mode .review-item {
+            background: #16213e;
+        }
+
+        .review-question {
+            font-size: 1.2em;
+            font-weight: 600;
+            margin-bottom: 15px;
+            color: #333;
+        }
+
+        body.dark-mode .review-question {
+            color: #fff;
+        }
+
+        .review-answer {
+            margin: 10px 0;
+            padding: 10px;
+            border-radius: 8px;
+            font-weight: 600;
+        }
+
+        .review-answer.user-answer {
+            background: #ffebee;
+            color: #c62828;
+        }
+
+        body.dark-mode .review-answer.user-answer {
+            background: #3d0000;
+            color: #ff6b6b;
+        }
+
+        .review-answer.correct-answer {
+            background: #e8f5e9;
+            color: #2e7d32;
+        }
+
+        body.dark-mode .review-answer.correct-answer {
+            background: #003d00;
+            color: #69f0ae;
+        }
+
+        .loading-spinner {
+            display: none;
+            text-align: center;
+            padding: 20px;
+        }
+
+        .loading-spinner.active {
+            display: block;
+        }
+
+        .spinner {
+            border: 4px solid #f3f3f3;
+            border-top: 4px solid #667eea;
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            animation: spin 1s linear infinite;
+            margin: 0 auto;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .back-btn {
+            background: #f44336;
+            color: white;
+            border: none;
+            padding: 12px 30px;
+            border-radius: 25px;
+            font-size: 1em;
+            font-weight: 600;
+            cursor: pointer;
+            margin-bottom: 20px;
+            transition: all 0.3s ease;
+            font-family: 'Tajawal', sans-serif;
+        }
+
+        .back-btn:hover {
+            background: #d32f2f;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(244, 67, 54, 0.3);
+        }
+
+        @media (max-width: 768px) {
+            .platform-logo {
+                font-size: 1.8em;
+            }
+
+            .quiz-title {
+                font-size: 1.4em;
+            }
+
+            .question-text {
+                font-size: 1.1em;
+            }
+
+            .option-btn {
+                font-size: 1em;
+                padding: 15px 20px;
+            }
+
+            .true-false-container {
+                grid-template-columns: 1fr;
+            }
+
+            .tf-btn {
+                font-size: 1.2em;
+                padding: 20px;
+            }
+
+            .score-display {
+                font-size: 3em;
+            }
+
+            .header {
+                padding: 20px;
+            }
+
+            .quiz-card {
+                padding: 25px;
+            }
+
+            .lecture-selection {
+                padding: 25px;
+            }
+
+            .selection-title {
+                font-size: 1.5em;
+            }
+
+            .lecture-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .controls {
+                top: 10px;
+                left: 10px;
+            }
+
+            .control-btn {
+                width: 45px;
+                height: 45px;
+                font-size: 1.3em;
+            }
+        }
+    </style>
+  <style>@view-transition { navigation: auto; }</style>
+  <script src="https://cdn.tailwindcss.com" type="text/javascript"></script>
+ </head>
+ <body>
+  <canvas class="confetti-canvas" id="confettiCanvas"></canvas>
+  <div class="controls"><button class="control-btn" id="darkModeToggle" title="الوضع الليلي">🌙</button> <button class="control-btn" id="fullScreenToggle" title="ملء الشاشة">⛶</button>
+  </div>
+  <div class="app-container">
+   <div class="header">
+    <div class="platform-logo" id="platformTitle">
+     منصة QDU للاختبار التفاعلي
+    </div>
+    <div class="subject-name" id="subjectName">
+     اللغة العربية - النحو
+    </div>
+    <div class="student-info">
+     الطالب: <span id="studentName">مقتدى الكناني</span>
+    </div>
+   </div>
+   <div class="lecture-selection" id="lectureSelection">
+    <div class="selection-title">
+     اختر المحاضرة التي تريد التدرب عليها
+    </div>
+    <div class="lecture-grid">
+     <div class="lecture-card" onclick="startLecture(1)">
+      <div class="lecture-icon">
+       📝
+      </div>
+      <div class="lecture-title" id="lecture1Title">
+       همزتا الوصل والقطع والهمزة المتوسطة
+      </div>
+      <div class="lecture-questions">
+       50 سؤال
+      </div>
+      <div class="lecture-description">
+       30 اختيار متعدد + 20 صح أم خطأ
+      </div>
+     </div>
+     <div class="lecture-card" onclick="startLecture(2)">
+      <div class="lecture-icon">
+       ✍️
+      </div>
+      <div class="lecture-title" id="lecture2Title">
+       علامات الترقيم
+      </div>
+      <div class="lecture-questions">
+       20 سؤال
+      </div>
+      <div class="lecture-description">
+       12 اختيار متعدد + 8 صح أم خطأ
+      </div>
+     </div>
+     <div class="lecture-card" onclick="startLecture(3)">
+      <div class="lecture-icon">
+       ⚖️
+      </div>
+      <div class="lecture-title" id="lecture3Title">
+       الميزان الصرفي
+      </div>
+      <div class="lecture-questions">
+       30 سؤال
+      </div>
+      <div class="lecture-description">
+       20 اختيار متعدد + 10 صح أم خطأ
+      </div>
+     </div>
+    </div>
+   </div>
+   <div class="quiz-card" id="quizCard" style="display: none;"><button class="back-btn" onclick="backToSelection()">← العودة لاختيار المحاضرة</button>
+    <div class="quiz-header">
+     <div class="quiz-title" id="quizTitle"></div>
+     <div class="progress-bar">
+      <div class="progress-fill" id="progressFill"></div>
+     </div>
+     <div class="progress-text" id="progressText"></div>
+    </div>
+    <div class="loading-spinner" id="loadingSpinner">
+     <div class="spinner"></div>
+     <p>جاري التحميل...</p>
+    </div>
+    <div class="question-container" id="questionContainer"></div>
+   </div>
+  </div>
+  <script>
+        const defaultConfig = {
+            platform_title: "منصة QDU للاختبار التفاعلي",
+            subject_name: "اللغة العربية - النحو",
+            student_name: "مقتدى الكناني",
+            lecture_1_title: "همزتا الوصل والقطع والهمزة المتوسطة",
+            lecture_2_title: "علامات الترقيم",
+            lecture_3_title: "الميزان الصرفي",
+            background_color: "#667eea",
+            surface_color: "#ffffff",
+            text_color: "#333333",
+            primary_action_color: "#764ba2",
+            secondary_action_color: "#667eea",
+            font_family: "Tajawal",
+            font_size: 16
+        };
+
+        const lecture1Questions = [
+            // أسئلة اختيار متعدد (30 سؤال)
+            {
+                type: "multiple",
+                question: "ما هي همزة الوصل؟",
+                options: [
+                    "همزة تُنطَق في ابتداء الكلام ولا تُنطَق عند وصله",
+                    "همز�� تُنطَق دائماً في ابتداء الكلام ووصله",
+                    "همزة لا تُنطَق أبداً",
+                    "همزة تُكتب فقط ولا تُنطق"
+                ],
+                correct: 0,
+                explanation: "همزة الوصل هي همزة تُنطَق في ابتداء الكلام ولا تُنطَق ع��د وصله واستمراره، مثل: استخرج، انصرف"
+            },
+            {
+                type: "multiple",
+                question: "ما هي همزة القطع؟",
+                options: [
+                    "همزة تُنطَق في الوصل فقط",
+                    "همزة متحركة تُنطَق في ابتداء الكلام وفي وصله",
+                    "همزة ساكنة لا تُنطَق",
+                    "همزة تُكتب على السطر"
+                ],
+                correct: 1,
+                explanation: "همزة القط�� هي همزة متحركة تُنطَق في ابتداء الكلام وف�� وصله، مثل: إرسال، سأل"
+            },
+            {
+                type: "multiple",
+                question: "في أي موضع تأتي همزة الوصل في الأفعال؟",
+                options: [
+                    "الفعل الماضي الثلاثي",
+                    "أمر الفعل الثلاثي المبدوء بهمزة",
+                    "الفعل الماضي الرباعي",
+                    "جميع الأفعال"
+                ],
+                correct: 1,
+                explanation: "همزة الوصل تأتي في أمر الفعل الثلاثي المبدوء بهمزة، مثل: اخرج، افتح، اكتب"
+            },
+            {
+                type: "multiple",
+                question: "أي من الأسماء التالية تبدأ بهمزة وصل؟",
+                options: [
+                    "أحمد",
+                    "ابن",
+                    "أمجد",
+                    "إيطاليا"
+                ],
+                correct: 1,
+                explanation: "من الأسماء التي تبدأ بهمزة وصل: اسم، ابن، ابنة، اثنتان، اثنان، امرأة"
+            },
+            {
+                type: "multiple",
+                question: "ما نوع الهمزة في كلمة 'الكتاب'؟",
+                options: [
+                    "همزة قطع",
+                    "همزة وصل",
+                    "همزة متوسطة",
+                    "همزة متطرفة"
+                ],
+                correct: 1,
+                explanation: "الـ التعريف همزتها همزة وصل، مثل: الكتاب، الرازي، الشجرة"
+            },
+            {
+                type: "multiple",
+                question: "في أي موضع تأتي همزة القطع في الأفعال؟",
+                options: [
+                    "أمر الفعل الثلاثي",
+                    "الفعل الماضي الثلاثي ومصدره",
+                    "الفعل الخماسي",
+                    "الفعل السداسي"
+                ],
+                correct: 1,
+                explanation: "همزة القطع تأتي في الفعل الماضي الثلاثي ومصدره، مثل: أكل، أكلاً، أخذ، أخذاً"
+            },
+            {
+                type: "multiple",
+                question: "ما نوع الهمزة في كلمة 'انطلق'؟",
+                options: [
+                    "همزة قطع",
+                    "همزة وصل",
+                    "همزة متوسطة",
+                    "همزة متطرفة"
+                ],
+                correct: 1,
+                explanation: "هم��ة الوصل تقع في الماضي والأمر والمصدر الخماسي، مثل: انطلق، انطلق، انطلاق"
+            },
+            {
+                type: "multiple",
+                question: "ما نوع الهمزة في كلمة 'أرسل'؟",
+                options: [
+                    "همزة وصل",
+                    "همزة قطع",
+                    "همزة متوسطة",
+                    "همزة على الألف"
+                ],
+                correct: 1,
+                explanation: "همزة القطع تأتي في الفعل الماضي الرباعي وأمره ومصدره، مثل: أرسل، أرسل، إرسال"
+            },
+            {
+                type: "multiple",
+                question: "عند كتابة الهمزة المتوسطة، ما هي أقوى الحركات؟",
+                options: [
+                    "الفتحة",
+                    "الضمة",
+                    "الكسرة",
+                    "السكون"
+                ],
+                correct: 2,
+                explanation: "أقوى الحركات على الترتيب: الكسرة (تناسبها الياء)، الضمة (تناسبها الواو)، الفتحة (تناسبها الألف)"
+            },
+            {
+                type: "multiple",
+                question: "ما الحرف المناسب للكسرة عند كتابة الهمزة المتوسطة��",
+                options: [
+                    "الألف",
+                    "الواو",
+                    "الياء",
+                    "السطر"
+                ],
+                correct: 2,
+                explanation: "الكسرة تناسبها الياء، وهي أقوى الحركات"
+            },
+            {
+                type: "multiple",
+                question: "لماذا كُتبت الهمزة في كلمة 'سألت' على الألف؟",
+                options: [
+                    "لأن حركة الهمزة والتي قبلها فتحة",
+                    "لأن حركة الهمزة ضمة",
+                    "لأن حركة الهمزة كسرة",
+                    "لأن ما قبلها ساكن"
+                ],
+                correct: 0,
+                explanation: "كُتبت الهمزة في 'سألت' على الألف لأن حركة الهمزة والتي قبلها فتحة"
+            },
+            {
+                type: "multiple",
+                question: "لماذا كُتبت الهمزة في كلمة 'المؤمنون' على الواو؟",
+                options: [
+                    "لأن الفتحة أقوى من السكون",
+                    "لأن الضمة أقوى من السكون",
+                    "لأن الكسرة أقوى من الضمة",
+                    "لأن م�� قبلها ساكن"
+                ],
+                correct: 1,
+                explanation: "كُتبت الهمزة في 'المؤمنون' على الواو لأن الضمة أقوى من السكون"
+            },
+            {
+                type: "multiple",
+                question: "لماذا كُتبت الهمزة في كلمة 'سئلت' على الياء؟",
+                options: [
+                    "لأن الفتحة أقوى من الضمة",
+                    "لأن الضمة أقوى من السكون",
+                    "لأن الكسرة أقوى من الضمة",
+                    "لأن ما قبلها ساكن"
+                ],
+                correct: 2,
+                explanation: "كُتبت الهم��ة في 'سئلت' على الياء لأن الكسرة أقوى من الضمة"
+            },
+            {
+                type: "multiple",
+                question: "كيف تُكتب الهمزة المتطرفة إذا كان ما قبلها مفتوحاً؟",
+                options: [
+                    "على الألف",
+                    "على الواو",
+                    "على الياء (النبرة)",
+                    "على السطر"
+                ],
+                correct: 0,
+                explanation: "إذا كان ما قبل الهمزة المتطرفة مفتوحاً نكتبها على الألف، مثل: نبأ، سبأ، نشأ"
+            },
+            {
+                type: "multiple",
+                question: "كيف تُكتب الهمزة المتطرفة إذا كان ما قبلها مكسوراً؟",
+                options: [
+                    "على الألف",
+                    "على الوا��",
+                    "على الياء (النبرة)",
+                    "على السطر"
+                ],
+                correct: 2,
+                explanation: "إذا كان ما قبل ال��مزة المتطرفة مكسوراً نكتبها على الياء (النبرة)، مثل: شاطئ، ممتلئ، مكافِئ"
+            },
+            {
+                type: "multiple",
+                question: "كيف تُكتب الهمزة المتطرفة إذا كان ما قبلها مضموماً؟",
+                options: [
+                    "على الألف",
+                    "على الواو",
+                    "على الياء (النبرة)",
+                    "على السطر"
+                ],
+                correct: 1,
+                explanation: "إذا كان ما قبل الهمزة المتطرفة مضموماً نكتبها على الواو، مثل: تباطؤ، لؤلؤ، تَلَكُّؤ"
+            },
+            {
+                type: "multiple",
+                question: "كيف تُكتب الهمزة المتطرفة إذا كان ما قبلها ساكناً؟",
+                options: [
+                    "على الألف",
+                    "على الواو",
+                    "على الياء (النبرة)",
+                    "على السطر"
+                ],
+                correct: 3,
+                explanation: "إذا كان ما قبل الهمزة المتطرفة ساكناً نكتبها على السطر، مثل: كفء، عبء، بطء"
+            },
+            {
+                type: "multiple",
+                question: "ما نوع الهمزة في كلمة 'استخرج'؟",
+                options: [
+                    "همزة قطع",
+                    "همزة وصل",
+                    "همزة متوسطة",
+                    "همزة متطرفة"
+                ],
+                correct: 1,
+                explanation: "همزة الوصل تأتي في الماضي والأمر والمصدر السداسي، مثل: استخرج، استخرج، استخراج"
+            },
+            {
+                type: "multiple",
+                question: "ما نوع الهمزة في كلمة 'أمريكا'؟",
+                options: [
+                    "همزة وصل",
+                    "همزة قطع",
+                    "همزة متوسطة",
+                    "لا يوجد همزة"
+                ],
+                correct: 1,
+                explanation: "همزة القطع تأتي في أسماء البلاد المبدوءة بهمزة، مثل: إيطاليا، أمريكا، ألمانيا"
+            },
+            {
+                type: "multiple",
+                question: "ما نوع الهمزة في كلمة 'أنت'؟",
+                options: [
+                    "همزة وصل",
+                    "همزة قطع",
+                    "همزة متوسطة",
+                    "همزة متطرفة"
+                ],
+                correct: 1,
+                explanation: "همزة القطع تأتي في الضما��ر المبدوءة بهمزة، مثل: أنت، أنتم، أنتما"
+            },
+            {
+                type: "multiple",
+                question: "أي من الحروف التالية همزتها همزة قطع؟",
+                options: [
+                    "الـ التعريف",
+                    "إن",
+                    "كل الحروف",
+                    "لا يوجد حرف بهمزة قطع"
+                ],
+                correct: 1,
+                explanation: "جميع الحروف المبدوءة بهمزة همزتها همزة قطع ماعدا الـ التعريف، مثل: أن، أو، ألا، إلى، إلا، إن"
+            },
+            {
+                type: "multiple",
+                question: "لماذا كُتبت الهمزة في كلمة 'مأمون' على الألف؟",
+                options: [
+                    "لأن الفتحة أقوى من السكون",
+                    "لأن ��لضمة أقوى من السكون",
+                    "لأن الكسرة أقوى من الفتحة",
+                    "لأن ما قبلها مضموم"
+                ],
+                correct: 0,
+                explanation: "كُتبت الهمزة في 'مأمون' على الألف لأن الفتحة أقوى من السكون"
+            },
+            {
+                type: "multiple",
+                question: "لماذا كُتبت الهمزة في كلم�� 'يبدؤون' على الواو؟",
+                options: [
+                    "لأن الفتحة أقوى من الضمة",
+                    "لأن الضمة أقوى من الفتحة",
+                    "لأن الكسرة أقوى من الضمة",
+                    "لأن ما قبلها ساكن"
+                ],
+                correct: 1,
+                explanation: "كُتبت الهمزة في 'يبدؤون' على ا��واو لأن الضمة أقوى من الفتحة"
+            },
+            {
+                type: "multiple",
+                question: "لماذا كُتبت الهمزة في كلمة 'مئة' على الياء؟",
+                options: [
+                    "لأن الفتحة أقوى من الكسرة",
+                    "لأن الضمة أقوى من السكون",
+                    "لأن الكسرة أقوى من الفتحة",
+                    "لأن ما قبلها ساكن"
+                ],
+                correct: 2,
+                explanation: "كُتبت الهمزة في 'مئة' على الياء لأن الكسرة أقوى من الفتحة"
+            },
+            {
+                type: "multiple",
+                question: "لماذا كُتبت الهمزة في كلمة 'بئر' على الياء؟",
+                options: [
+                    "لأن الفتحة أقوى من السكون",
+                    "��أن الضمة أقوى من السكون",
+                    "لأن الكسر�� أقوى من السكون",
+                    "لأن ما قبلها مفتوح"
+                ],
+                correct: 2,
+                explanation: "كُتبت الهمزة في 'بئر' على الياء لأن الكسرة أقوى من السكون"
+            },
+            {
+                type: "multiple",
+                question: "ما نوع الهمزة في كلمة 'امرأة'؟",
+                options: [
+                    "همزة قطع",
+                    "همزة وصل",
+                    "همزة متوسطة",
+                    "همزة متطرفة"
+                ],
+                correct: 1,
+                explanation: "همزة الوصل تقع مع الأسماء: اسم، ابن، ابنة، اثنتان، اثنان، امرأة، امرأتان"
+            },
+            {
+                type: "multiple",
+                question: "ما نوع الهمزة في كلمة 'انتصار' (مصدر خماس��)؟",
+                options: [
+                    "همزة قطع",
+                    "همزة وصل",
+                    "همزة متوسطة",
+                    "همزة متطرفة"
+                ],
+                correct: 1,
+                explanation: "همزة الوصل تأتي في المصدر الخماسي، مثل: انتصار"
+            },
+            {
+                type: "multiple",
+                question: "ما نوع الهمزة في كلمة 'استقبال' (مصدر سداسي)؟",
+                options: [
+                    "همزة قطع",
+                    "همزة وصل",
+                    "همزة متوسطة",
+                    "همزة متطرفة"
+                ],
+                correct: 1,
+                explanation: "همزة الوصل تأتي في المصدر السداسي، مثل: استقبا��"
+            },
+            {
+                type: "multiple",
+                question: "ما ترتيب قوة الحركات في اللغة العربية؟",
+                options: [
+                    "الفتحة، الضمة، الكسرة",
+                    "الضمة، الكسرة، الفتحة",
+                    "الكسرة، الضمة، الفتحة",
+                    "الكسرة، الفتحة، الضمة"
+                ],
+                correct: 2,
+                explanation: "ترتيب قوة الحركات: الكسرة (الأقوى)، الضمة، الفتحة"
+            },
+            {
+                type: "multiple",
+                question: "في كلمة 'مسألة'، لماذا كُتبت الهمزة على الألف؟",
+                options: [
+                    "لأن الفتحة أقوى من السكون",
+                    "لأن الضمة أقوى من السكون",
+                    "لأن الكسرة أ��وى من الفتحة",
+                    "لأن ما ��بلها مكسور"
+                ],
+                correct: 0,
+                explanation: "كُتبت الهمزة في 'مسألة' على الألف لأن الفتحة أقوى من السكون"
+            },
+
+            // أسئلة صح أم خطأ (20 سؤال)
+            {
+                type: "truefalse",
+                question: "همزة الوصل تُنطَق في ابتداء الكلام وفي وصله",
+                correct: false,
+                explanation: "خطأ - همزة الوصل تُنطَق في ابتداء الكلام فقط ولا تُنطَق عند وصله"
+            },
+            {
+                type: "truefalse",
+                question: "همزة القطع تُنطَق في ابتداء الكلام وفي وصله",
+                correct: true,
+                explanation: "صح - همزة القطع متحركة تُنطَق في ابتداء الكلام وفي وصله"
+            },
+            {
+                type: "truefalse",
+                question: "الـ التعريف همزتها همزة قطع",
+                correct: false,
+                explanation: "خطأ - الـ التعريف همزتها همزة وصل"
+            },
+            {
+                type: "truefalse",
+                question: "همزة الوصل تأتي في أمر الفعل الثلاثي",
+                correct: true,
+                explanation: "صح - همزة الوصل تأتي في أمر الفعل الثلاثي المبدوء بهمزة، مثل: اخرج، افتح"
+            },
+            {
+                type: "truefalse",
+                question: "كلمة 'ابن' ��بدأ بهمزة ��طع",
+                correct: false,
+                explanation: "خطأ - كلمة 'ابن' تبدأ بهمزة وصل"
+            },
+            {
+                type: "truefalse",
+                question: "همزة القطع تأتي في الفعل الماضي الثلاثي",
+                correct: true,
+                explanation: "صح - همزة القطع تأتي في الفعل الماضي الثلاثي ومصدره، مثل: أكل، أخذ"
+            },
+            {
+                type: "truefalse",
+                question: "الكسرة هي أقوى الحركات في اللغة العربية",
+                correct: true,
+                explanation: "صح - الكسرة هي أقوى الحركات وتناسبها الياء"
+            },
+            {
+                type: "truefalse",
+                question: "الضمة تناسبها الألف عند كتابة الهمزة المتوسطة",
+                correct: false,
+                explanation: "خطأ - الضمة تناسبها الواو، والفتحة تناسبها الألف"
+            },
+            {
+                type: "truefalse",
+                question: "إذا كان م�� قبل الهمزة المتطرفة ساكناً، نكتبها على السطر",
+                correct: true,
+                explanation: "صح - إذا كان ما قبل الهمزة المتطرفة ساكناً نكتبها على السطر، مثل: كفء، عبء"
+            },
+            {
+                type: "truefalse",
+                question: "كلمة 'أمريكا' تبدأ بهمزة وصل",
+                correct: false,
+                explanation: "خطأ - كلمة 'أمريكا' تبدأ بهمزة قطع لأنها اسم بلد"
+            },
+            {
+                type: "truefalse",
+                question: "همزة الوصل تأتي في المصدر الخماسي والسداسي",
+                correct: true,
+                explanation: "صح - همزة الوصل تأتي في المصدر الخماسي مثل: انتصار، والسداسي مثل: استقبال"
+            },
+            {
+                type: "truefalse",
+                question: "جميع الحروف المبدوءة بهمزة همزتها همزة قطع",
+                correct: false,
+                explanation: "خطأ - جميع الحروف المبدوءة بهمزة همزتها همزة قطع ماعدا الـ التعريف"
+            },
+            {
+                type: "truefalse",
+                question: "الضمائر المبدوءة بهمزة همزتها همزة قطع",
+                correct: true,
+                explanation: "صح - الضمائر مثل: أنت، أنتم، أنتما همزتها همزة قطع"
+            },
+            {
+                type: "truefalse",
+                question: "إذا كان ما قبل الهمزة المتطرفة مفتوحاً، نكتبها على الواو",
+                correct: false,
+                explanation: "خطأ - إذا كان ما قبل الهمزة المتطرفة مفتوحاً، نكتبها على الألف"
+            },
+            {
+                type: "truefalse",
+                question: "كلمة 'استخرج' همزتها همزة وصل",
+                correct: true,
+                explanation: "صح - كلمة 'استخرج' فعل سداسي ��همزته همزة وصل"
+            },
+            {
+                type: "truefalse",
+                question: "الفتحة أقوى من الكسرة في كتابة الهمزة المتوسطة",
+                correct: false,
+                explanation: "خطأ - الكسرة أقوى من الفتحة"
+            },
+            {
+                type: "truefalse",
+                question: "كلمة 'امرأة' تبدأ بهمزة وصل",
+                correct: true,
+                explanation: "صح - كلمة 'امرأة' من الأسماء التي تبدأ بهمزة وصل"
+            },
+            {
+                type: "truefalse",
+                question: "إذا كان ما قبل الهمزة المتطرفة مكسوراً، نكتبها على الياء (النبرة)",
+                correct: true,
+                explanation: "صح - إذا كان ما قبل الهمزة المتطرفة مكسوراً، نكتبها على الياء، مثل: شاطئ"
+            },
+            {
+                type: "truefalse",
+                question: "الفعل الماضي الرباعي همزته همزة وصل",
+                correct: false,
+                explanation: "خطأ - الفعل الماضي الرباعي همزته همزة قطع، مثل: أرسل، أعلم"
+            },
+            {
+                type: "truefalse",
+                question: "كلمة 'اثنان' تبدأ بهمزة وص��",
+                correct: true,
+                explanation: "صح - كلمة 'اثنان' من الأسماء التي تبدأ بهمزة وصل"
+            }
+        ];
+
+        const lecture2Questions = [
+            // أس��لة اختيار متعدد (12 سؤال)
+            {
+                type: "multiple",
+                question: "ما هو تعريف علامات الترقيم؟",
+                options: [
+                    "مجموعة من رموز وإشارات مخصوصة يستخدمها الكاتب في نهاية الجمل أو بين أجزائها",
+                    "علامات توضع فقط في نهاية الجمل",
+                    "رموز تُستخدم للزينة فقط",
+                    "إشارات تُستخدم في الرياضيات"
+                ],
+                correct: 0,
+                explanation: "علامات الترقيم هي مجموعة من رموز وإشارات مخصوصة يست��دمها الكاتب في نهاية الجمل أو بين أجزائها لتقسيم الكلام وإيضاح المعنى"
+            },
+            {
+                type: "multiple",
+                question: "متى تُستخدم الفاصل�� (،)؟",
+                options: [
+                    "في نهاية الكلام",
+                    "بين الجمل المتصلة المعنى، وبين أقسام الشيء",
+                    "بعد الجملة الاستفهامية",
+                    "بعد التعجب"
+                ],
+                correct: 1,
+                explanation: "الفاصلة (،) تُستخدم بين الجمل المتصلة المعنى، وبين أقسام الشيء، مثل: (رحم الله امرأ، قال خيراً فغنم، أو سكت فسلم)"
+            },
+            {
+                type: "multiple",
+                question: "أين توضع النقطة (.)؟",
+                options: [
+                    "بين الجمل القصيرة",
+                    "في نهاية الكلام سواء كان فقرة أو مقطع",
+                    "بعد القول",
+                    "بين الجمل الطويلة"
+                ],
+                correct: 1,
+                explanation: "النقطة (.) توضع في نهاية الكلام سواء كان فقرة أو مقطع"
+            },
+            {
+                type: "multiple",
+                question: "متى تُستخدم النقطتان (:)؟",
+                options: [
+                    "في نهاية الفقرة",
+                    "بعد القول أو عند التعداد أو عند التعريف",
+                    "بين الجمل الطويلة",
+                    "بعد التعجب"
+                ],
+                correct: 1,
+                explanation: "ا��ن��طتان (:) تُستخدم بعد القول أو عند التعداد أو عند التعريف"
+            },
+            {
+                type: "multiple",
+                question: "متى تُستخدم الفاصلة المنقوطة (؛)؟",
+                options: [
+                    "في نهاية الكلام",
+                    "بين الجمل الطويلة وبين جملتين تكون إحداهما سبباً في حدوث الأخرى",
+                    "بعد السؤال",
+                    "عند نقل الكلام حرفياً"
+                ],
+                correct: 1,
+                explanation: "الفاصلة المنقوطة (؛) تُستخدم بين الجمل الطويلة وبين جملتين تكون إحداهما سبباً في حدوث الأخرى، مثل: (افصل الموظف؛ لأنه مهمل)"
+            },
+            {
+                type: "multiple",
+                question: "ما هي العلامة التي تدل على التعجب؟",
+                options: [
+                    "؟",
+                    "!",
+                    ".",
+                    "،"
+                ],
+                correct: 1,
+                explanation: "علامة التعجب (!) تدل على التعجب، وتوضع بعد الانفعالات التي تظهر على الإنسان، مثل: (ما ��جمل السماء!)"
+            },
+            {
+                type: "multiple",
+                question: "متى تُستخدم علامة الاستفهام (؟)؟",
+                options: [
+                    "بعد نهاية الجملة الاستفهامية أي بعد السؤال",
+                    "في نهاية الكلام",
+                    "بعد التعجب",
+                    "بين الجمل المتصلة"
+                ],
+                correct: 0,
+                explanation: "علامة الاستفهام (؟) تُستخدم بعد نهاية الجملة الاستفهامية أي بعد السؤال، مثل: (��يف أجبت في الاختبار؟)"
+            },
+            {
+                type: "multiple",
+                question: "متى تُستخدم الشرطية (-)؟",
+                options: [
+                    "بعد العدد والمعدود",
+                    "في نهاية الكل��م",
+                    "بعد السؤال",
+                    "بين الجمل الطويلة"
+                ],
+                correct: 0,
+                explanation: "الشرطية (-) تُستخدم بعد العدد والمعدود، مثل: (عوامل النجاح ثلاثة: 1- الصدق، 2- الإخلا��، 3- الإبداع)"
+            },
+            {
+                type: "multiple",
+                question: "متى تُستخدم علامة التنصيص (\" \")؟",
+                options: [
+                    "في نهاية الفقرة",
+                    "عندما يُنقَل الكلام حرفياً",
+                    "بعد التعجب",
+                    "بين الجمل الطويلة"
+                ],
+                correct: 1,
+                explanation: "علامة التنصيص (\" \") تُستخدم عندما يُنقَل الكلام حرفياً، مثل: (\"الحرية تؤخذ ولا تعطى\")"
+            },
+            {
+                type: "multiple",
+                question: "أي من الجمل التالية تحتاج إلى علامة استفهام (؟)؟",
+                options: [
+                    "ما أجمل السماء",
+                    "كيف حالك",
+                    "الطقس جميل اليوم",
+                    "افصل الموظف؛ لأنه مهمل"
+                ],
+                correct: 1,
+                explanation: "الجملة الاستفهامية 'كيف حالك' تحتاج إلى علامة استفهام (؟) في نهايتها"
+            },
+            {
+                type: "multiple",
+                question: "أي من الجمل التالية تحتاج إلى علامة تعجب (!)؟",
+                options: [
+                    "كيف أجبت في الاختبار",
+                    "ما أروع الطبيعة",
+                    "ذهبت إلى المدرسة",
+                    "قال المعلم: ادرسوا جيداً"
+                ],
+                correct: 1,
+                explanation: "الجملة التعجبية 'ما أروع الطبيعة' تحتاج إلى علامة تعجب (!) في نهايتها"
+            },
+            {
+                type: "multiple",
+                question: "في الجملة التالية: 'قال المعلم ــــ الصدق أساس النجاح'. ما العلامة المناسبة؟",
+                options: [
+                    ".",
+                    ":",
+                    "؟",
+                    "!"
+                ],
+                correct: 1,
+                explanation: "النقطتان (:) تُستخدم بعد القول، فالجملة الصحيحة: 'قال المعلم: الصدق أساس النجاح'"
+            },
+
+            // أسئلة صح أم خطأ (8 أسئلة)
+            {
+                type: "truefalse",
+                question: "الفاصلة (،) توضع في نهاية الكلام",
+                correct: false,
+                explanation: "خطأ - الفاصلة توضع بين الجمل المتصلة المعنى وبين أقسام الشيء، وليس في نهاية الكلام"
+            },
+            {
+                type: "truefalse",
+                question: "النقطة (.) توضع في نهاية الكلام سواء كان فقرة أو مقطع",
+                correct: true,
+                explanation: "صح - ��لنقطة توضع في نهاية الكلام سواء كان فقرة أو مقطع"
+            },
+            {
+                type: "truefalse",
+                question: "الفاصلة المنقوطة (؛) تُستخدم بين جملتين تكون إحداهما سبباً في حدوث الأخرى",
+                correct: true,
+                explanation: "صح - الفاصلة المنقوطة تُستخدم بين الجمل الطويلة وبين جملتين تكون إحداهما سبباً في حدوث الأخرى"
+            },
+            {
+                type: "truefalse",
+                question: "علامة الاستفهام (؟) توضع بعد الجم��ة التعجبية",
+                correct: false,
+                explanation: "خطأ - علامة الاستفهام توضع بعد الجملة الاستفهامية (السؤال)، أما ال��ملة التعجبية فتوضع بعدها علامة التعجب (!)"
+            },
+            {
+                type: "truefalse",
+                question: "علامة التنصيص (\" \") تُستخدم عندما يُنقَل الكلام حرفياً",
+                correct: true,
+                explanation: "صح - علامة التنصيص تُستخدم عندما يُنقَل الكلام حرفياً"
+            },
+            {
+                type: "truefalse",
+                question: "الشرطية (-) تُستخدم بعد العدد والمعدود",
+                correct: true,
+                explanation: "صح - الشرطية تُستخدم بعد العدد والمعدود عند التعداد"
+            },
+            {
+                type: "truefalse",
+                question: "علامة التعجب (!) تُستخدم بعد نهاية الجملة الاستفهامية",
+                correct: false,
+                explanation: "خطأ - علامة التعجب تُستخدم بعد الانفعالات والتعجب، أما الجملة الاستفهامية فتوضع بعدها علامة الاستفهام (؟)"
+            },
+            {
+                type: "truefalse",
+                question: "النقطتان (:) تُستخدم بعد القول أو عند التعداد أو عند التعريف",
+                correct: true,
+                explanation: "صح - النقطتان تُستخد�� بعد القول أو عند التعداد أو عند التعريف"
+            }
+        ];
+
+        const lecture3Questions = [
+            // أسئلة اختيار متعدد (20 سؤال)
+            {
+                type: "multiple",
+                question: "ما هو علم الصرف؟",
+                options: [
+                    "العلم الذي يدرس بنية الكلمة في اللغة العربية",
+                    "العلم الذي يد��س موقع الكلمة في الجملة",
+                    "العلم ال��ي يدرس معاني الكلمات",
+                    "العلم الذي يدرس تشكيل الكلمات فقط"
+                ],
+                correct: 0,
+                explanation: "علم الصرف هو العلم الذي يدرس بنية الكلمة في اللغة العربية، أي كيف تتغير حروفها لتدل على معانٍ مختلفة"
+            },
+            {
+                type: "multiple",
+                question: "ما هو الميزان الصرفي؟",
+                options: [
+                    "أداة لقياس الكلمات العربية ومعرفة أصلها وبنيتها",
+                    "أداة ل��ياس حركة الكلمة",
+                    "أداة لمعرفة معنى الكلمة",
+                    "أداة لتصنيف الكلمات حسب طولها"
+                ],
+                correct: 0,
+                explanation: "الميزان الصرفي هو أداة يس��خدمها اللغويون لقياس الكلمات العربية ومعرفة أصلها وبنيتها"
+            },
+            {
+                type: "multiple",
+                question: "ما هي الحروف الثلاثة التي يتكون منها الميزان الصرفي؟",
+                options: [
+                    "أ - ب - ج",
+                    "ف - ع - ل",
+                    "ك - ت - ب",
+                    "د - ر - س"
+                ],
+                correct: 1,
+                explanation: "الميزان الصرفي يتكون من ثلاثة أحرف هي: ف - ع - ل"
+            },
+            {
+                type: "multiple",
+                question: "ما هو الوزن الصرفي لكلمة 'كَتَبَ'؟",
+                options: [
+                    "فَعِلَ",
+                    "فَعَلَ",
+                    "فَعُلَ",
+                    "فَاعَلَ"
+                ],
+                correct: 1,
+                explanation: "الوزن الصرفي لكلمة 'كَتَبَ' هو 'فَعَلَ'"
+            },
+            {
+                type: "multiple",
+                question: "ما هو الوزن الصرفي لكلمة 'عَلِمَ'؟",
+                options: [
+                    "فَعَلَ",
+                    "فَعِلَ",
+                    "فَعُلَ",
+                    "فَاعَلَ"
+                ],
+                correct: 1,
+                explanation: "الوزن الصرفي لكلمة 'عَلِمَ' هو 'فَعِلَ'"
+            },
+            {
+                type: "multiple",
+                question: "ما هو الوزن الصرفي لكلمة 'كَرُمَ'؟",
+                options: [
+                    "فَعَلَ",
+                    "فَعِلَ",
+                    "فَعُلَ",
+                    "فَاعَلَ"
+                ],
+                correct: 2,
+                explanation: "الوزن الصرفي لكلمة 'كَرُمَ' هو 'فَعُلَ'"
+            },
+            {
+                type: "multiple",
+                question: "ما هو أصل كلمة 'مدرس' قبل الزيادة؟",
+                options: [
+                    "كتب",
+                    "درس",
+                    "علم",
+                    "غفر"
+                ],
+                correct: 1,
+                explanation: "أصل كلمة 'مدرس' هو 'درس'"
+            },
+            {
+                type: "multiple",
+                question: "ما ��و الوزن الصرفي لكلمة 'مدرس'؟",
+                options: [
+                    "فاعل",
+                    "مفعل",
+                    "مفعول",
+                    "تفعل"
+                ],
+                correct: 1,
+                explanation: "الوزن الصرفي لكلمة 'مدرس' (أصلها درس) هو 'مفعل'"
+            },
+            {
+                type: "multiple",
+                question: "ما هو الوزن الصرفي لكلمة 'مكتوب'؟",
+                options: [
+                    "مفعل",
+                    "مفعول",
+                    "فاعل",
+                    "تفعل"
+                ],
+                correct: 1,
+                explanation: "الوزن الصرفي لكلمة 'مكتوب' (أصلها كتب) هو 'مفعول'"
+            },
+            {
+                type: "multiple",
+                question: "ما هو أصل كلمة 'تعلم' ق��ل الزيادة؟",
+                options: [
+                    "كتب",
+                    "درس",
+                    "علم",
+                    "غفر"
+                ],
+                correct: 2,
+                explanation: "أصل كلمة 'تعلم' هو 'ع��م'"
+            },
+            {
+                type: "multiple",
+                question: "ما هو الوزن الصرفي لكلمة 'تعلم'؟",
+                options: [
+                    "فعل",
+                    "تفعل",
+                    "افتعل",
+                    "استفعل"
+                ],
+                correct: 1,
+                explanation: "الوزن الصرفي لكلمة 'تعلم' (أصلها علم) هو 'تفعل'"
+            },
+            {
+                type: "multiple",
+                question: "ما هو الوزن الصرفي لكلمة 'استخرج'؟",
+                options: [
+                    "افتعل",
+                    "تفعل",
+                    "استفعل",
+                    "انفعل"
+                ],
+                correct: 2,
+                explanation: "الوزن الصرفي لكل��ة 'استخرج' (أصلها خرج) هو 'استفعل'"
+            },
+            {
+                type: "multiple",
+                question: "ما هو أصل كلمة 'استغفر' قبل الزيادة؟",
+                options: [
+                    "خرج",
+                    "غفر",
+                    "درس",
+                    "علم"
+                ],
+                correct: 1,
+                explanation: "أصل كلمة 'استغفر' هو 'غفر'"
+            },
+            {
+                type: "multiple",
+                question: "ما هو الوزن الصرفي لكلمة 'استغفر'؟",
+                options: [
+                    "تفعل",
+                    "افتعل",
+                    "استفعل",
+                    "انفعل"
+                ],
+                correct: 2,
+                explanation: "الوزن الصرفي لكلمة 'استغفر' (أصلها غفر) هو 'استفعل'"
+            },
+            {
+                type: "multiple",
+                question: "في كلمة 'كَتَبَ'، ماذا يقابل حرف الكاف في الميزان الصرفي؟",
+                options: [
+                    "فاء الكلمة",
+                    "عين الكلمة",
+                    "لام الكلمة",
+                    "حرف زائد"
+                ],
+                correct: 0,
+                explanation: "في كلمة 'كَتَبَ'، الكاف = فاء الكلمة"
+            },
+            {
+                type: "multiple",
+                question: "في كلمة 'كَتَبَ'، ماذا يقابل حرف التاء في الميزان الصرفي؟",
+                options: [
+                    "فاء الكلمة",
+                    "عين الكلمة",
+                    "لام الكلمة",
+                    "حرف زائد"
+                ],
+                correct: 1,
+                explanation: "في كلمة 'كَتَبَ'، التاء = ��ين الكلمة"
+            },
+            {
+                type: "multiple",
+                question: "في كلمة 'كَتَبَ'، ماذا يقابل حرف الباء في الميزان الصرفي؟",
+                options: [
+                    "فاء الكلمة",
+                    "عين الكلمة",
+                    "لام الكلمة",
+                    "حرف زائد"
+                ],
+                correct: 2,
+                explanation: "في كلمة 'كَتَبَ'، الباء = لام الكلمة"
+            },
+            {
+                type: "multiple",
+                question: "ما هو الوزن الصرفي لكلمة 'دَرَسَ'؟",
+                options: [
+                    "فَعَلَ",
+                    "فَعِلَ",
+                    "فَعُلَ",
+                    "فَاعَلَ"
+                ],
+                correct: 0,
+                explanation: "الوزن الصرفي لكلمة 'دَرَسَ' هو 'فَعَلَ'"
+            },
+            {
+                type: "multiple",
+                question: "ما ال��رق بين علم النحو وعلم الصرف؟",
+                options: [
+                    "النحو يهتم بموقع الكلمة في الجملة، والصرف يدرس ��كل الكلمة نفسه",
+                    "النحو يدرس شكل الكلمة، والصرف يهتم بموقعها",
+                    "لا يوجد فرق بينهما",
+                    "النحو للأفعال والصرف للأسماء"
+                ],
+                correct: 0,
+                explanation: "النحو يهتم بموقع الكلمة في الجملة، أما ال��رف فيدرس شكل الكلمة نفسه"
+            },
+            {
+                type: "multiple",
+                question: "ما الهدف من استخدام الميزان الصرفي؟",
+                options: [
+                    "معرفة حروف الكلمة الأصلية والزوائد",
+                    "معرفة معنى الكلمة ��قط",
+                    "معرفة موقع الكلمة في الجملة",
+                    "تشكيل الكلمة بالحركات"
+                ],
+                correct: 0,
+                explanation: "الميزان الصرفي يستخدم لمعرفة حروف الكلمة الأصلية والزوائد"
+            },
+
+            // أسئلة صح أم خطأ (10 أسئلة)
+            {
+                type: "truefalse",
+                question: "علم الصرف يدرس موقع الكلمة في الجملة",
+                correct: false,
+                explanation: "خطأ - علم الصرف يدرس بنية الكلمة نفسها، أما النحو فيهتم بموقع الكلمة في الجملة"
+            },
+            {
+                type: "truefalse",
+                question: "الميزان الصرفي يتكون من الحروف (ف - ع - ل)",
+                correct: true,
+                explanation: "صح - الميزان الصرفي يتكون من ثلاثة أحرف هي: ف - ع - ل"
+            },
+            {
+                type: "truefalse",
+                question: "الوزن ال��رفي لكلمة 'نَصَرَ' هو 'فَعَلَ'",
+                correct: true,
+                explanation: "صح - الوزن الصرفي لكلمة 'نَصَرَ' هو 'فَعَلَ'"
+            },
+            {
+                type: "truefalse",
+                question: "أصل كلمة 'مكتوب' هو 'درس'",
+                correct: false,
+                explanation: "خطأ - أصل كلمة 'مكتوب' هو 'كتب' وليس 'درس'"
+            },
+            {
+                type: "truefalse",
+                question: "الوزن الصرفي لكلمة 'تعلم' هو 'تفعل'",
+                correct: true,
+                explanation: "صح - الوزن الصرفي لكلمة 'تعلم' (أصلها علم) هو 'تفعل'"
+            },
+            {
+                type: "truefalse",
+                question: "في كلمة 'كَتَبَ'، التاء تقابل فاء الكلمة في الميزان الصرفي",
+                correct: false,
+                explanation: "خطأ - في كلمة 'كَتَبَ'، التاء تقابل عين الكلمة، والكاف تقابل فاء الكلمة"
+            },
+            {
+                type: "truefalse",
+                question: "الوزن الصرفي لكلمة 'استغفر' هو 'استفعل'",
+                correct: true,
+                explanation: "صح - الوزن ا��صرفي لكلمة 'استغفر' (أصلها غفر) هو 'استفعل'"
+            },
+            {
+                type: "truefalse",
+                question: "أصل كلمة 'مدرس' هو 'درس'",
+                correct: true,
+                explanation: "صح - أصل كلمة 'مدرس' هو 'درس'"
+            },
+            {
+                type: "truefalse",
+                question: "الميزان الصرفي يستخدم فقط لوزن الأفعال الثلاثية",
+                correct: false,
+                explanation: "خطأ - الميزان الصرفي يستخدم لوزن جميع الكلمات العربية سواء كانت ثلاثية أو مزيدة"
+            },
+            {
+                type: "truefalse",
+                question: "النحو يهتم بموقع الكلمة في الجملة، أما الصرف فيدرس شكل الكلمة نفسه",
+                correct: true,
+                explanation: "��ح - النحو يهتم بموقع الكلمة في الجملة، أما الصرف فيدرس شكل الكلمة نفسه"
+            }
+        ];
+
+        let currentLecture = 0;
+        let currentQuestion = 0;
+        let score = 0;
+        let userAnswers = [];
+        let isDarkMode = false;
+        let isFullScreen = false;
+        let quizResults = [];
+        let currentQuestions = [];
+
+        function startLecture(lectureNum) {
+            currentLecture = lectureNum;
+            currentQuestion = 0;
+            score = 0;
+            userAnswers = [];
+            
+            if (lectureNum === 1) {
+                currentQuestions = lecture1Questions;
+                document.getElementById('quizTitle').textContent = window.elementSdk.config.lecture_1_title || defaultConfig.lecture_1_title;
+            } else if (lectureNum === 2) {
+                currentQuestions = lecture2Questions;
+                document.getElementById('quizTitle').textContent = window.elementSdk.config.lecture_2_title || defaultConfig.lecture_2_title;
+            } else {
+                currentQuestions = lecture3Questions;
+                document.getElementById('quizTitle').textContent = window.elementSdk.config.lecture_3_title || defaultConfig.lecture_3_title;
+            }
+
+            document.getElementById('lectureSelection').style.display = 'none';
+            document.getElementById('quizCard').style.display = 'block';
+            
+            displayQuestion();
+        }
+
+        function backToSelection() {
+            document.getElementById('lectureSelection').style.display = 'block';
+            document.getElementById('quizCard').style.display = 'none';
+            currentLecture = 0;
+            currentQuestion = 0;
+            score = 0;
+            userAnswers = [];
+        }
+
+        function updateProgress() {
+            const progress = ((currentQuestion + 1) / currentQuestions.length) * 100;
+            const progressFill = document.getElementById('progressFill');
+            const progressText = document.getElementById('progressText');
+            progressFill.style.width = progress + '%';
+            progressText.textContent = `السؤال ${currentQuestion + 1} من ${currentQuestions.length}`;
+        }
+
+        function displayQuestion() {
+            if (currentQuestion >= currentQuestions.length) {
+                showResults();
+                return;
+            }
+
+            const container = document.getElementById('questionContainer');
+            const q = currentQuestions[currentQuestion];
+            
+            const questionTypeBadge = q.type === 'multiple' ? 
+                '<span class="question-type-badge">اختيار متعدد</span>' : 
+                '<span class="question-type-badge" style="background: #4caf50;">صح أم خطأ</span>';
+
+            if (q.type === 'multiple') {
+                container.innerHTML = `
+                    ${questionTypeBadge}
+                    <div class="question-text">${currentQuestion + 1}. ${q.question}</div>
+                    <div class="options-container" id="optionsContainer">
+                        ${q.options.map((option, index) => `
+                            <button class="option-btn" onclick="checkAnswer(${index})" data-index="${index}">
+                                ${option}
+                            </button>
+                        `).join('')}
+                    </div>
+                    <div id="feedbackBox"></div>
+                `;
+            } else {
+                container.innerHTML = `
+                    ${questionTypeBadge}
+                    <div class="question-text">${currentQuestion + 1}. ${q.question}</div>
+                    <div class="true-false-container">
+                        <button class="tf-btn" onclick="checkTrueFalse(true)">✓ صح</button>
+                        <button class="tf-btn" onclick="checkTrueFalse(false)">✗ خطأ</button>
+                    </div>
+                    <div id="feedbackBox"></div>
+                `;
+            }
+
+            updateProgress();
+        }
+
+        async function checkAnswer(selectedIndex) {
+            const buttons = document.querySelectorAll('.option-btn');
+            const feedbackBox = document.getElementById('feedbackBox');
+            const q = currentQuestions[currentQuestion];
+            
+            buttons.forEach(btn => btn.disabled = true);
+
+            userAnswers.push(selectedIndex);
+
+            if (selectedIndex === q.correct) {
+                buttons[selectedIndex].classList.add('correct');
+                score++;
+                feedbackBox.innerHTML = `
+                    <div class="feedback-box" style="background: #e8f5e9; border-color: #4caf50; color: #2e7d32;">
+                        ✓ إجابة صحيحة! ممتاز!
+                    </div>
+                `;
+                // الانتقال التلقائي بعد ثانية واحدة
+                setTimeout(() => {
+                    nextQuestion();
+                }, 1000);
+            } else {
+                buttons[selectedIndex].classList.add('wrong');
+                buttons[q.correct].classList.add('correct');
+                feedbackBox.innerHTML = `
+                    <div class="feedback-box">${q.explanation}</div>
+                    <button class="action-btn" style="margin-top: 15px;" onclick="nextQuestion()">التالي ←</button>
+                `;
+            }
+        }
+
+        async function checkTrueFalse(answer) {
+            const buttons = document.querySelectorAll('.tf-btn');
+            const feedbackBox = document.getElementById('feedbackBox');
+            const q = currentQuestions[currentQuestion];
+            
+            buttons.forEach(btn => btn.disabled = true);
+
+            userAnswers.push(answer);
+
+            if (answer === q.correct) {
+                buttons[answer ? 0 : 1].classList.add('correct');
+                score++;
+                feedbackBox.innerHTML = `
+                    <div class="feedback-box" style="background: #e8f5e9; border-color: #4caf50; color: #2e7d32;">
+                        ✓ إجابة صحيحة! ممتاز!
+                    </div>
+                `;
+                // الانتقال التلقائي بعد ثانية واحدة
+                setTimeout(() => {
+                    nextQuestion();
+                }, 1000);
+            } else {
+                buttons[answer ? 0 : 1].classList.add('wrong');
+                buttons[q.correct ? 0 : 1].classList.add('correct');
+                feedbackBox.innerHTML = `
+                    <div class="feedback-box">${q.explanation}</div>
+                    <button class="action-btn" style="margin-top: 15px;" onclick="nextQuestion()">التالي ←</button>
+                `;
+            }
+        }
+
+        function nextQuestion() {
+            currentQuestion++;
+            displayQuestion();
+        }
+
+        async function showResults() {
+            const container = document.getElementById('questionContainer');
+            const percentage = Math.round((score / currentQuestions.length) * 100);
+            
+            let scoreClass = 'fail';
+            let message = 'لا بأس، كل خبير كان مبتدئاً. راجع إجاباتك وحاول مجدداً! 💪';
+            
+            if (percentage >= 90) {
+                scoreClass = 'excellent';
+                message = 'أداء أسطوري! أنت حقاً أستاذ في النحو! تهانينا! 🏆✨';
+                launchConfetti();
+            } else if (percentage >= 50) {
+                scoreClass = 'pass';
+                message = 'أداء جيد! استمر في التقدم والمراجعة لتحقيق الأفضل. 💪';
+            }
+
+            let lectureTitle = '';
+            if (currentLecture === 1) {
+                lectureTitle = window.elementSdk.config.lecture_1_title || defaultConfig.lecture_1_title;
+            } else if (currentLecture === 2) {
+                lectureTitle = window.elementSdk.config.lecture_2_title || defaultConfig.lecture_2_title;
+            } else {
+                lectureTitle = window.elementSdk.config.lecture_3_title || defaultConfig.lecture_3_title;
+            }
+
+            container.innerHTML = `
+                <div class="results-container">
+                    <h2>النتيجة النهائية</h2>
+                    <div class="score-display ${scoreClass}">${percentage}%</div>
+                    <div class="result-message">${message}</div>
+                    <div class="result-details">
+                        <p><strong>المحاضرة:</strong> ${lectureTitle}</p>
+                        <p><strong>الإجابات الصحيحة:</strong> ${score} من ${currentQuestions.length}</p>
+                        <p><strong>الإجابات الخاطئة:</strong> ${currentQuestions.length - score}</p>
+                    </div>
+                    <button class="action-btn" onclick="reviewAnswers()">مراجعة الاختبار</button>
+                    <button class="action-btn" onclick="restartQuiz()">إعادة الاختبار</button>
+                    <button class="action-btn" onclick="backToSelection()">اختيار محاضرة أخرى</button>
+                </div>
+            `;
+
+            document.getElementById('progressText').textContent = 'اكتمل الاختبار';
+
+            const loadingSpinner = document.getElementById('loadingSpinner');
+            loadingSpinner.classList.add('active');
+
+            if (window.dataSdk) {
+                const result = await window.dataSdk.create({
+                    quiz_id: Date.now().toString(),
+                    student_name: window.elementSdk.config.student_name || defaultConfig.student_name,
+                    subject: window.elementSdk.config.subject_name || defaultConfig.subject_name,
+                    lecture: lectureTitle,
+                    score: score,
+                    total_questions: currentQuestions.length,
+                    percentage: percentage,
+                    completed_at: new Date().toISOString(),
+                    answers: JSON.stringify(userAnswers)
+                });
+
+                loadingSpinner.classList.remove('active');
+
+                if (!result.isOk) {
+                    const errorMessage = document.createElement('div');
+                    errorMessage.style.cssText = 'background: #ffebee; color: #c62828; padding: 15px; border-radius: 10px; margin-top: 20px;';
+                    errorMessage.textContent = '⚠️ حدث خطأ في حفظ النتائج';
+                    container.appendChild(errorMessage);
+                }
+            } else {
+                loadingSpinner.classList.remove('active');
+            }
+        }
+
+        function reviewAnswers() {
+            const container = document.getElementById('questionContainer');
+            let reviewHTML = '<h2 style="text-align: center; margin-bottom: 30px;">مراجعة الاختبار</h2>';
+            
+            currentQuestions.forEach((q, index) => {
+                const userAnswer = userAnswers[index];
+                let isCorrect;
+                let userAnswerText;
+                let correctAnswerText;
+
+                if (q.type === 'multiple') {
+                    isCorrect = userAnswer === q.correct;
+                    userAnswerText = q.options[userAnswer];
+                    correctAnswerText = q.options[q.correct];
+                } else {
+                    isCorrect = userAnswer === q.correct;
+                    userAnswerText = userAnswer ? 'صح' : 'خطأ';
+                    correctAnswerText = q.correct ? 'صح' : 'خطأ';
+                }
+                
+                reviewHTML += `
+                    <div class="review-item">
+                        <div class="review-question">${index + 1}. ${q.question}</div>
+                        <div class="review-answer user-answer">
+                            <strong>إجابتك:</strong> ${userAnswerText} ${isCorrect ? '✓' : '✗'}
+                        </div>
+                        ${!isCorrect ? `
+                            <div class="review-answer correct-answer">
+                                <strong>الإجابة الصحيحة:</strong> ${correctAnswerText}
+                            </div>
+                            <div style="margin-top: 10px; color: #666; font-size: 0.95em;">
+                                ${q.explanation}
+                            </div>
+                        ` : ''}
+                    </div>
+                `;
+            });
+            
+            reviewHTML += `
+                <div style="text-align: center; margin-top: 30px;">
+                    <button class="action-btn" onclick="restartQuiz()">إعادة الاختبار</button>
+                    <button class="action-btn" onclick="backToSelection()">اختيار محاضرة أخرى</button>
+                </div>
+            `;
+            
+            container.innerHTML = reviewHTML;
+        }
+
+        function restartQuiz() {
+            currentQuestion = 0;
+            score = 0;
+            userAnswers = [];
+            displayQuestion();
+        }
+
+        function launchConfetti() {
+            const canvas = document.getElementById('confettiCanvas');
+            const ctx = canvas.getContext('2d');
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+
+            const particles = [];
+            const colors = ['#ff6b6b', '#4ecdc4', '#45b7d1', '#f9ca24', '#f0932b', '#eb4d4b', '#6c5ce7', '#ffd700', '#ff1493', '#00ff00'];
+
+            // إنشاء فراقيع من اليمين
+            for (let i = 0; i < 75; i++) {
+                particles.push({
+                    x: canvas.width,
+                    y: canvas.height + Math.random() * 100,
+                    vx: -(Math.random() * 8 + 5),
+                    vy: -(Math.random() * 15 + 10),
+                    r: Math.random() * 10 + 6,
+                    color: colors[Math.floor(Math.random() * colors.length)],
+                    gravity: 0.3,
+                    rotation: Math.random() * 360,
+                    rotationSpeed: Math.random() * 10 - 5
+                });
+            }
+
+            // إنشاء فراقيع من اليسار
+            for (let i = 0; i < 75; i++) {
+                particles.push({
+                    x: 0,
+                    y: canvas.height + Math.random() * 100,
+                    vx: Math.random() * 8 + 5,
+                    vy: -(Math.random() * 15 + 10),
+                    r: Math.random() * 10 + 6,
+                    color: colors[Math.floor(Math.random() * colors.length)],
+                    gravity: 0.3,
+                    rotation: Math.random() * 360,
+                    rotationSpeed: Math.random() * 10 - 5
+                });
+            }
+
+            function draw() {
+                ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+                particles.forEach((p, index) => {
+                    ctx.save();
+                    ctx.translate(p.x, p.y);
+                    ctx.rotate((p.rotation * Math.PI) / 180);
+
+                    // رسم شكل مستطيل للفرقعة
+                    ctx.fillStyle = p.color;
+                    ctx.fillRect(-p.r / 2, -p.r * 2, p.r, p.r * 4);
+
+                    ctx.restore();
+
+                    // تحديث الموقع والسرعة
+                    p.x += p.vx;
+                    p.y += p.vy;
+                    p.vy += p.gravity;
+                    p.rotation += p.rotationSpeed;
+
+                    // الاتجاه نحو الوسط
+                    const centerX = canvas.width / 2;
+                    const dx = centerX - p.x;
+                    p.vx += dx * 0.001;
+
+                    // إزالة الفراقيع التي خرجت من الشاشة
+                    if (p.y < -50 || p.x < -50 || p.x > canvas.width + 50) {
+                        particles.splice(index, 1);
+                    }
+                });
+
+                if (particles.length > 0) {
+                    requestAnimationFrame(draw);
+                } else {
+                    ctx.clearRect(0, 0, canvas.width, canvas.height);
+                }
+            }
+
+            draw();
+        }
+
+        document.getElementById('darkModeToggle').addEventListener('click', () => {
+            isDarkMode = !isDarkMode;
+            document.body.classList.toggle('dark-mode');
+            document.getElementById('darkModeToggle').textContent = isDarkMode ? '☀️' : '🌙';
+        });
+
+        document.getElementById('fullScreenToggle').addEventListener('click', () => {
+            if (!isFullScreen) {
+                if (document.documentElement.requestFullscreen) {
+                    document.documentElement.requestFullscreen();
+                }
+                isFullScreen = true;
+            } else {
+                if (document.exitFullscreen) {
+                    document.exitFullscreen();
+                }
+                isFullScreen = false;
+            }
+        });
+
+        document.addEventListener('fullscreenchange', () => {
+            isFullScreen = !!document.fullscreenElement;
+        });
+
+        async function onConfigChange(config) {
+            document.getElementById('platformTitle').textContent = config.platform_title || defaultConfig.platform_title;
+            document.getElementById('subjectName').textContent = config.subject_name || defaultConfig.subject_name;
+            document.getElementById('studentName').textContent = config.student_name || defaultConfig.student_name;
+            document.getElementById('lecture1Title').textContent = config.lecture_1_title || defaultConfig.lecture_1_title;
+            document.getElementById('lecture2Title').textContent = config.lecture_2_title || defaultConfig.lecture_2_title;
+            document.getElementById('lecture3Title').textContent = config.lecture_3_title || defaultConfig.lecture_3_title;
+        }
+
+        const dataHandler = {
+            onDataChanged(data) {
+                quizResults = data;
+            }
+        };
+
+        // منع النقر بالزر الأ��من
+        document.addEventListener('contextmenu', (e) => {
+            e.preventDefault();
+            return false;
+        });
+
+        // منع اختصارات لوحة المفاتيح
+        document.addEventListener('keydown', (e) => {
+            // منع Ctrl+C (نسخ)
+            if ((e.ctrlKey || e.metaKey) && e.key === 'c') {
+                e.preventDefault();
+                return false;
+            }
+            // منع Ctrl+X (قص)
+            if ((e.ctrlKey || e.metaKey) && e.key === 'x') {
+                e.preventDefault();
+                return false;
+            }
+            // منع Ctrl+A (تحديد الكل)
+            if ((e.ctrlKey || e.metaKey) && e.key === 'a') {
+                e.preventDefault();
+                return false;
+            }
+            // منع Ctrl+U (عرض المصدر)
+            if ((e.ctrlKey || e.metaKey) && e.key === 'u') {
+                e.preventDefault();
+                return false;
+            }
+            // منع Ctrl+S (حفظ)
+            if ((e.ctrlKey || e.metaKey) && e.key === 's') {
+                e.preventDefault();
+                return false;
+            }
+            // منع F12 (أدوات المطور)
+            if (e.key === 'F12') {
+                e.preventDefault();
+                return false;
+            }
+            // منع Ctrl+Shift+I (فتح المفتش)
+            if ((e.ctrlKey || e.metaKey) && e.shiftKey && e.key === 'I') {
+                e.preventDefault();
+                return false;
+            }
+            // منع Ctrl+Shift+J (Console)
+            if ((e.ctrlKey || e.metaKey) && e.shiftKey && e.key === 'J') {
+                e.preventDefault();
+                return false;
+            }
+            // منع Ctrl+Shift+C (Inspect Element)
+            if ((e.ctrlKey || e.metaKey) && e.shiftKey && e.key === 'C') {
+                e.preventDefault();
+                return false;
+            }
+        });
+
+        // منع السحب والإفلات
+        document.addEventListener('dragstart', (e) => {
+            e.preventDefault();
+            return false;
+        });
+
+        // منع القص واللصق
+        document.addEventListener('copy', (e) => {
+            e.preventDefault();
+            return false;
+        });
+
+        document.addEventListener('cut', (e) => {
+            e.preventDefault();
+            return false;
+        });
+
+        document.addEventListener('paste', (e) => {
+            e.preventDefault();
+            return false;
+        });
+
+        async function initializeApp() {
+            if (window.dataSdk) {
+                const initResult = await window.dataSdk.init(dataHandler);
+                if (!initResult.isOk) {
+                    console.error('Failed to initialize data SDK');
+                }
+            }
+
+            if (window.elementSdk) {
+                window.elementSdk.init({
+                    defaultConfig,
+                    onConfigChange,
+                    mapToCapabilities: (config) => ({
+                        recolorables: [],
+                        borderables: [],
+                        fontEditable: undefined,
+                        fontSizeable: undefined
+                    }),
+                    mapToEditPanelValues: (config) => new Map([
+                        ["platform_title", config.platform_title || defaultConfig.platform_title],
+                        ["subject_name", config.subject_name || defaultConfig.subject_name],
+                        ["student_name", config.student_name || defaultConfig.student_name],
+                        ["lecture_1_title", config.lecture_1_title || defaultConfig.lecture_1_title],
+                        ["lecture_2_title", config.lecture_2_title || defaultConfig.lecture_2_title],
+                        ["lecture_3_title", config.lecture_3_title || defaultConfig.lecture_3_title]
+                    ])
+                });
+            }
+        }
+
+        initializeApp();
+    </script>
+ <script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'9a7c878db6d2d342',t:'MTc2NDY5NjM4OC4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+</html>
